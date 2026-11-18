@@ -1,6 +1,8 @@
-# WhatsApp Meet Button
+# Meet Button for WhatsApp Web
 
-Adds a **Meet** button to WhatsApp Web. Click it, and a new Google Meet link appears in the message box of the open chat. Press Enter to send it, and the meeting opens in a new tab.
+Adds a **Meet** button to the chat header in WhatsApp Web. Click it, and a new Google Meet link appears in the message box of the open chat. Press Enter to send it, and the meeting opens in a new tab.
+
+This project is independent and is not affiliated with WhatsApp, Meta or Google.
 
 ## Install
 

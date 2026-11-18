@@ -1,4 +1,5 @@
 (() => {
+  const HEADER_SELECTOR = '#main header';
   const FOOTER_SELECTOR = '#main footer';
   const COMPOSER_SELECTOR = '#main footer [contenteditable="true"]';
   const SENT_MESSAGE_SELECTOR = '#main .message-out';
@@ -146,16 +147,25 @@
   }
 
   function positionButton() {
-    const footer = document.querySelector(FOOTER_SELECTOR);
-    if (!footer) {
+    const header = document.querySelector(HEADER_SELECTOR);
+    if (!header || !document.querySelector(FOOTER_SELECTOR)) {
       button.hidden = true;
       return;
     }
     button.hidden = false;
-    const footerRect = footer.getBoundingClientRect();
+    const headerRect = header.getBoundingClientRect();
     const buttonRect = button.getBoundingClientRect();
-    button.style.left = `${Math.round(footerRect.right - buttonRect.width - 16)}px`;
-    button.style.top = `${Math.round(footerRect.top - buttonRect.height - 10)}px`;
+    const headerMiddle = headerRect.left + headerRect.width / 2;
+
+    // The call, search and menu icons sit in the right half of the header.
+    const iconLefts = [...header.querySelectorAll('button, [role="button"]')]
+      .map((element) => element.getBoundingClientRect())
+      .filter((rect) => rect.width > 0 && rect.left > headerMiddle)
+      .map((rect) => rect.left);
+    const rightEdge = iconLefts.length ? Math.min(...iconLefts) : headerRect.right - 240;
+
+    button.style.left = `${Math.round(rightEdge - buttonRect.width - 12)}px`;
+    button.style.top = `${Math.round(headerRect.top + (headerRect.height - buttonRect.height) / 2)}px`;
   }
 
   function tick() {
